@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Welcome to our site</title>
+    <script src="script08.js"></script>
+</head>
+
+<body>
+    <h2 class="centered">
+        Hey, check out <a href="jswelcome.html" id="redirect"> my cat's Web site</a>.
+    </h2>
+    <script>
+        window.onload = initAll;
+
+        function initAll() {
+            document.getElementById("redirect").onclick = initRedirect;
+
+            function initRedirect() {
+                alert("你将离开本网站");
+                window.location = this;
+
+                return false;
+            }
+        }
+    </script>
+</body>
+
+</html>

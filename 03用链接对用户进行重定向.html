@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h2 class="centered">
+        <a href="script04.html" id="redirect">Welcome to our site</a>
+    </h2>
+    <script>
+        window.onload = initAll;
+
+        function initAll() {
+            document.getElementById("redirect").onclick = initRedirect;
+
+            function initRedirect() {
+                //将浏览器显示的页面设置成新的页面
+                window.location = "jswelcome.html";
+                //停止对用户单击事件的处理,这样就不会加载href所指向的页面
+                return false;
+            }
+        }
+    </script>
+</body>
+
+</html>
