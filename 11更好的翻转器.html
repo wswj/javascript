@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background-color: #FFF;
+        }
+        
+        img {
+            border-width: 0;
+        }
+        
+        img#arrow,
+        img#arrowImg {
+            width: 147px;
+            height: 82px;
+        }
+        
+        #button1,
+        #button2 {
+            width: 113px;
+            height: 33px;
+        }
+        
+        .centered {
+            text-align: center;
+        }
+        
+        #adBanner {
+            width: 400px;
+            height: 75px;
+        }
+    </style>
+</head>
+
+<body>
+    <a href="next1.html"><img src="/assert/img/arrow_off.gif" alt="button1" id="button1"></a>&nbsp;&nbsp;
+    <a href="next2.html"><img src="/assert/img/arrow_off.gif" alt="button2" id="button2"></a>
+    <script>
+        window.onload = rollOverInit
+
+        function rollOverInit() {
+            for (var i = 0; i < document.images.length; i++) {
+                if (document.images[i].parentNode.tagName == "A") {
+                    setUpRollover(document.images[i]);
+                }
+            }
+        }
+
+        function setUpRollover(thisImage) {
+            thisImage.outImage = new Image();
+            thisImage.outImage.src = thisImage.src;
+            thisImage.onmouseout = function() {
+                thisImage.src = this.outImage.src;
+            }
+            thisImage.overImage = new Image();
+            thisImage.overImage.src = "/assert/img/arrow_on.gif";
+            thisImage.onmouseover = function() {
+                thisImage.src = this.overImage.src;
+            }
+            thisImage.clickImage = new Image();
+            thisImage.clickImage.src = "/assert/img/arrow_off.gif";
+            thisImage.onclick = function() {
+                thisImage.src = this.clickImage.src;
+                return false;
+            }
+        }
+    </script>
+</body>
+
+</html>

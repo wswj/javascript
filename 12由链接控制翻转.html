@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Link Rollover</title>
+</head>
+
+<body>
+    <h1><a href="next.html" id="arrow">Next page</a></h1>
+    <img src="/assert/img/arrow_off.gif" id="arrowImg" alt="arrow">
+    <script>
+        window.onload = initRollover;
+
+        function initRollover() {
+            var linklObj = document.links;
+            for (var i = 0; i < linklObj.length; i++) {
+                if (linklObj[i].id) {
+                    var imgObj = document.getElementById(linklObj[i].id + "Img");
+                    if (imgObj.id) {
+                        setRollover(linklObj[i], imgObj);
+                    }
+                }
+            }
+        }
+
+        function setRollover(link, img) {
+            link.outImg = new Image();
+            link.outImg.src = img.src;
+            link.overImg = new Image();
+            link.overImg.src = "/assert/img/arrow_on.gif";
+            link.onmouseout = function() {
+                img.src = this.outImg.src;
+            }
+            link.onmouseover = function() {
+                img.src = this.overImg.src;
+            }
+
+        }
+    </script>
+</body>
+
+</html>
