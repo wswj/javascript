@@ -3,6 +3,8 @@
 
 <head>
     <title>Make Your Own Bingo Card</title>
+    <link rel="stylesheet" href="script01.css">
+    <script src="script01.js"></script>
     <style>
         body {
             background-color: white;
@@ -126,96 +128,24 @@
     </div>
     <script>
         window.onload = initAll;
-        var useNum = new Array(76);
 
         function initAll() {
             //判断当前浏览器是否支持当前对象
             if (document.getElementById) {
-                newCard();
-                document.getElementById("reload").onclick = anotherCard;
+                for (var i = 0; i < 24; i++) {
+                    setSquare(i);
+                }
             } else {
                 alert("You Brower doesn't support this script");
             }
         }
 
-        function newCard() {
-            for (var i = 0; i < 24; i++) {
-                setSquare(i);
-            }
-        }
-
         function setSquare(thisSquare) {
-            var colPlace = [0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4];
+            var colPlace = [0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4];
             //计算每个方格的最小值
             var colBasic = colPlace[thisSquare] * 15;
-            var newNum;
-            do {
-                newNum = colBasic + getNum();
-            } while (useNum[newNum]);
-            useNum[newNum] = true;
+            var newNum = colBasic + Math.floor(Math.random() * 15) + 1;
             document.getElementById("square" + thisSquare).innerHTML = newNum;
-            document.getElementById("square" + thisSquare).className = "";
-            document.getElementById("square" + thisSquare).onmousedown = toggleColor;
-        }
-
-        function getNum() {
-            return Math.floor(Math.random() * 15) + 1;
-        }
-
-        function anotherCard() {
-            for (var i = 0; i < useNum.length; i++) {
-                useNum[i] = false;
-            }
-            newCard();
-            return false;
-        }
-
-        function toggleColor(evt) {
-            if (evt) {
-                var thisSquare = evt.target;
-            } else {
-                var thisSquare = window.event.srcElement;
-            }
-            if (thisSquare.className == "") {
-                thisSquare.className = "pickedBG"
-            } else {
-                thisSquare.className = "";
-            }
-            checkWin();
-        }
-
-        function checkWin() {
-            //存储用户可能遇到的获胜选项
-            var winningOption = -1;
-            var setSquares = 0;
-            //设置获胜编码
-            var winners = new Array(31, 992, 15360, 507904, 541729, 557328, 1083458, 2162820, 4329736, 8519745, 8659472, 16252928);
-
-            //执行完后，产生一个24位的数字，存储用户已经单击的格子，每一位的数值代表那个格的点击状态，被点击则设为1，否则设为0。如第一格没被点击过，第二格被点击过setSquares就为10
-            for (var i = 0; i < 24; i++) {
-                var currSquare = "square" + i;
-                if (document.getElementById(currSquare).className != "") {
-                    document.getElementById(currSquare).className = "pickedBG";
-                    setSquares = setSquares | Math.pow(2, i);
-                }
-            }
-
-            //判断用户选择是否是获胜状态
-            for (var i = 0; i < winners.length; i++) {
-                if ((winners[i] & setSquares) == winners[i]) {
-                    winningOption = i;
-                }
-            }
-
-            //
-            if (winningOption > -1) {
-                for (var i = 0; i < 24; i++) {
-                    if (winners[winningOption] & Math.pow(2, i)) {
-                        var currSquare = "square" + i;
-                        document.getElementById(currSquare).className = "winningBG";
-                    }
-                }
-            }
         }
     </script>
 </body>
