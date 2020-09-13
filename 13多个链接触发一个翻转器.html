@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Multiple Links, Single Rollover </title>
+    <style>
+        body {
+            background-color: #EC9;
+        }
+        
+        img {
+            border-width: 0;
+        }
+        
+        #captionDiv {
+            float: right;
+            width: 210px;
+            margin: auto 50px;
+        }
+        
+        #captionField {
+            margin: 20px auto;
+            width: 208px;
+            height: 27px;
+        }
+        
+        #inventionDiv {
+            width: 375px;
+            margin-left: 20px;
+        }
+        
+        #heading {
+            margin-bottom: 20px;
+            width: 375px;
+            height: 26px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="captionDiv">
+        <img src="/assert/img/hq.jpeg" width="144" height="219" alt="hq">
+        <img src="/assert/img/hq.jpeg" id="captionField" alt="Text Field">
+    </div>
+    <div id="inventionDiv">
+        <h2>Leonardo's Inventions</h2>
+        <a href="flyPage.html" class="captionField" id="flyer"><img src="/assert/img/flyer.jpg" width="293" height="165" alt="Flying Machine" id="flyerImg"></a>
+        <a href="tankPage.html" class="captionField" id="tank"><img src="/assert/img/tank.jpg" width="325" height="92" alt="Tank" id="tankImg"></a>
+        <a href="heliPage.html" class="captionField" id="helicopter"><img src="/assert/img/helicopter.jpg" width="224" height="160" alt="Helicopter" id="helicopterImg"></a>
+    </div>
+    <script>
+        window.onload = rolloverInit;
+
+        function rolloverInit() {
+            for (var i = 0; i < document.links.length; i++) {
+                var linkObj = document.links[i];
+                if (linkObj.className) {
+                    var imgObj = document.getElementById(linkObj.className);
+                    if (imgObj) {
+                        setupRollover(linkObj, imgObj);
+                    }
+                }
+            }
+        }
+
+        function setupRollover(theLink, textImage) {
+            theLink.onmouseout = function() {
+                textImage.src = this.outImg.src;
+            }
+            theLink.onmouseover = function() {
+                textImage.src = this.overImg.src;
+            }
+            theLink.outImg = new Image();
+            theLink.outImg.src = textImage.src;
+            theLink.overImg = new Image();
+            //firstChild获取元素第一个子节点
+            theLink.overImg.src = theLink.firstChild.src;
+        }
+    </script>
+</body>
+
+</html>
