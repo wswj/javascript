@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .img1 {
+            width: 500px;
+            height: 400px;
+            margin: 0 auto;
+        }
+        
+        .img1 #adbanner {
+            width: 500px;
+            height: 400px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="img1">
+        <img src="/assert/img/ad1.jpg" alt="ad1" id="adbanner">
+    </div>
+    <script>
+        window.onload = rota;
+        var adNum = 0;
+        var adArray = ["/assert/img/ad1.jpg", "/assert/img/ad2.jpg", "/assert/img/ad3.jpg"];
+
+        function rota() {
+            adNum++;
+            if (adNum == adArray.length) {
+                adNum = 0;
+            }
+            document.getElementById("adbanner").src = adArray[adNum];
+            setTimeout(rota, 3000);
+        }
+    </script>
+</body>
+
+</html>
