@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h2>open new window</h2>
+    <h2><a href="#" class="newWin">Pixel</a></h2>
+    <script>
+        window.onload = newLink;
+
+        function newLink() {
+            for (var i = 0; i < document.links.length; i++) {
+                if (document.links[i].className == "newWin") {
+                    document.links[i].onclick = newWindow;
+                }
+            }
+
+        }
+
+        function newWindow() {
+            var catWindow = window.open("http://wwww.baidu.com", "catWin", "resizeable = no, width = 350, height = 350");
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .img1 {
+            width: 500px;
+            height: 400px;
+            margin: 0 auto;
+        }
+        
+        .img1 #adbanner {
+            width: 500px;
+            height: 400px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="img1">
+        <a href="www.baidu.com"><img src="/assert/img/ad1.jpg" alt="ad1" id="adbanner"></a>
+    </div>
+    <script>
+        window.onload = init;
+        var adNum = 0;
+        var adArray = ["/assert/img/ad1.jpg", "/assert/img/ad2.jpg", "/assert/img/ad3.jpg"];
+        var adLink = ["baidu.com", "javdb.com", "pornhub.com"];
+
+        function rota() {
+            adNum++;
+            if (adNum == adArray.length) {
+                adNum = 0;
+            }
+            document.getElementById("adbanner").src = adArray[adNum];
+            setTimeout(rota, 3000);
+        }
+
+        function init() {
+            if (document.getElementById("adbanner").parentNode.tagName == "A") {
+                document.getElementById("adbanner").parentNode.onclick = newLocation;
+            }
+            rota();
+        }
+
+        function newLocation() {
+            window.location.href = "http://www." + adLink[adNum];
+            return false;
+        }
+    </script>
+</body>
+
+</html>

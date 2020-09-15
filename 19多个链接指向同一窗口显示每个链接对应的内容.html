@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h2>open new window</h2>
+    <h2><a href="#" class="newWin">Pixel</a></h2>
+    <h2><a href="#" class="newWin">Pixel</a></h2>
+    <h2><a href="#" class="newWin">Pixel</a></h2>
+    <script>
+        window.onload = newLink;
+        var link = ["baidu.com", "pornhub.com", "javdb.com"];
+
+        function newLink() {
+            for (var i = 0; i < document.links.length; i++) {
+                if (document.links[i].className == "newWin") {
+                    document.links[i].href1 = link[i];
+                    document.links[i].onclick = newWindow;
+                }
+            }
+        }
+
+        function newWindow() {
+            alert(this.href1);
+            var catWindow = window.open("http://www." + this.href1, "catWin", "width=500,height=400");
+            //让新打开的窗口位于最前面
+            catWindow.focus();
+            return false;
+        }
+    </script>
+</body>
+
+</html>
