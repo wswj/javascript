@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+        
+        .container {
+            width: 500px;
+            margin: 50px auto;
+            border-radius: 10px;
+            padding: 10px;
+            background-color: rgb(255, 255, 255);
+            box-shadow: 0px 0px 3px grey;
+        }
+        
+        .container h3 {
+            text-align: center;
+            padding-bottom: 10px;
+        }
+        
+        input.invalid {
+            background-color: #FF9;
+            border: 2px red inset;
+        }
+        
+        label.invalid {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h3>LoginForm</h3>
+        <form action="#">
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">UserName</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control reqd" id="inputEmail3">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="passord1" class="col-sm-2 col-form-label">Password</label>
+                <div class="col-sm-10">
+                    <input type="password" class="form-control reqd" id="passord1">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="passord2" class="col-sm-2 col-form-label">Password2</label>
+                <div class="col-sm-10">
+                    <input type="password" class="form-control reqd passord1" id="passord2">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-10">
+                    <button type="submit" class="btn btn-primary">Sign in</button>
+                    <button type="reset" class="btn btn-primary">Reset</button>
+                </div>
+
+            </div>
+        </form>
+    </div>
+    <script>
+        window.onload = function() {
+            document.forms[0].onsubmit = validForm;
+        }
+
+        function validForm() {
+            var allGood = true;
+            //获取表单中所有标签
+            var allTags = document.getElementsByTagName("input");
+            for (var i = 0; i < allTags.length; i++) {
+                if (!validTag(allTags[i])) {
+                    allGood = false;
+                }
+
+            }
+            //当返回为false时停止提交表单
+            return allGood;
+
+            function validTag(thisTag) {
+                var outClass = "";
+                //获取标签所有classname
+                var allClasses = thisTag.className.split(" ");
+                for (var i = 0; i < allClasses.length; i++) {
+                    outClass += validBasedOnClass(allClasses[i]) + " ";
+                }
+                thisTag.className = outClass;
+                if (outClass.indexOf("invalid") > -1) {
+                    invalidLabel(thisTag.parentNode.previousElementSibling);
+                    //获得焦点
+                    thisTag.focus();
+                    if (thisTag.nodeName == "INPUT") {
+                        //全选标签中的内容
+                        thisTag.select();
+                    }
+                    return false;
+                }
+                return true;
+
+                function invalidLabel(parentNode) {
+                    alert(parentNode.tagName);
+                    if (parentNode.tagName == "LABEL") {
+                        parentNode.className += " invalid";
+                    }
+                }
+
+                function validBasedOnClass(thisClass) {
+                    var classBack = "";
+                    //判断是否含有reqd类名
+                    switch (thisClass) {
+                        case "":
+                        case "invalid":
+                            break;
+                        case "reqd":
+                            //之所以有过为空时只显示第一个空标签是因为allGood的原因,遇到第一个空时allgood赋值为false其他的不在添加invalid
+                            if (allGood && thisTag.value == "") {
+                                classBack = "invalid "
+                            }
+                            classBack += thisClass;
+                            break;
+                        default:
+                            if (allGood) {
+                                if (thisClass == "passord1" && !crossCheck(thisTag, thisClass)) {
+                                    classBack = "invalid ";
+                                }
+
+                            }
+                            classBack += thisClass;
+                    }
+                    return classBack;
+
+                    function crossCheck(thisTag, otherID) {
+                        if (!document.getElementById(otherID)) {
+                            return false;
+
+                        }
+                        alert(thisTag.value == document.getElementById(otherID).value);
+                        return (thisTag.value == document.getElementById(otherID).value);
+                    }
+                }
+
+
+            }
+
+
+        }
+    </script>
+</body>
+
+</html>

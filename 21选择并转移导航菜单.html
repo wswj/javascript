@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form action="www.baidu.com">
+        <select name="" id="newLocation">
+            <option value="">select an option</option>
+            <option value="www.baidu.com">baidu</option>
+            <option value="www.pelexs.com">pelexs</option>
+        </select>
+        <!-- noscript当浏览器不支持script时显示,否则不显示 -->
+        <noscript>
+            <input type="submit" value="go here">
+        </noscript>
+    </form>
+    <script>
+        window.onload = initForm;
+        //防止从其他页面返回时onload事件不触发,使用该方发后
+        window.onunload = function() {}
+
+        function initForm() {
+            document.getElementById("newLocation").selectedIndex = 0;
+            document.getElementById("newLocation").onchange = newLocation;
+
+        }
+
+        function newLocation() {
+            var href = document.getElementById("newLocation")[this.selectedIndex].value;
+            if (href != "") {
+                window.location = href;
+            }
+        }
+    </script>
+</body>
+
+</html>
