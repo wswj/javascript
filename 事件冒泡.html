@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form id="form1" action="#">
+
+        <div id="divOne" onclick="alert('我是最外层');">
+
+            <div id="divTwo" onclick="alert('我是中间层！')">
+                <a id="hr_three" href="http://www.baidu.com" mce_href="http://www.baidu.com" onclick="alert('我是最里层！')">点击我</a>
+            </div>
+        </div>
+    </form>
+    <script>
+        // window.onload = function() {
+        //     document.getElementById("hr_three").onclick = function(event) {
+        //         //阻止事件冒泡但是不阻止默认行为,例如这个例子
+        //         event.stopPropagation();
+        //     }
+        // }
+        window.onload = function() {
+            document.getElementById("hr_three").onclick = function(event) {
+                //阻止事件冒泡同时阻止默认行为,例如这个例子最终不跳转
+                return false;
+            }
+        }
+    </script>
+</body>
+
+</html>

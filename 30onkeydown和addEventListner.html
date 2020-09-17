@@ -26,7 +26,9 @@
         <img src="/assert/img/tank.jpg" id="myPicture" alt="Slideshow"><br> Use the right and left arrows on your keyboard to view the slideshow
     </h3>
     <script>
-        document.onkeydown = keyHit;
+        //document.onkeydown = keyHit;
+        //三个参数,第一个参数事件类型,第二个处理函数,第三个指定事件被捕获(true)还是冒泡(false)
+        document.addEventListener("keydown", keyHit, false);
         var thisPic = 0;
 
         function keyHit(evt) {

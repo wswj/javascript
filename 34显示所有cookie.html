@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body id="cookieData">
+    <script>
+        window.addEventListener("load", showCookie, false);
+
+        function showCookie() {
+            var outMsg = "";
+            if (document.cookie == "") {
+                outMsg = "There are no cookies here";
+            } else {
+                var cookies = document.cookie.split("; ");
+                for (var i = 0; i < cookies.length; i++) {
+                    outMsg += "Cookie name is " + cookies[i].split("=")[0] + " value is " + cookies[i].split("=")[1] + "<br />";
+                }
+
+            }
+            document.getElementById("cookieData").innerHTML = outMsg;
+        }
+    </script>
+</body>
+
+</html>
