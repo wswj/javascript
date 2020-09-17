@@ -29,6 +29,7 @@
             var expireDate = new Date();
             expireDate.setMonth(expireDate.getMonth() + 6);
             var username = document.getElementById("nameField").value;
+            //alert(expireDate.toGMTString());
             document.cookie = "userName=" + username + ";expires=" + expireDate.toGMTString();
             document.getElementById("nameField").blur();
             return false;

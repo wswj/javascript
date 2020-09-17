@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body id="cookieData">
+    <script>
+        window.addEventListener("load", clearCookie, false);
+
+        function clearCookie() {
+            var cookieCount = 0;
+            if (document.cookie != "" && confirm("Do you want to delete the cookies")) {
+                var thisCookies = document.cookie.split("; ");
+                cookieCount = thisCookies.length;
+                var expireDate = new Date();
+                expireDate.setDate(expireDate.getDate() - 1);
+                for (var i = 0; i < cookieCount; i++) {
+                    var cookiename = thisCookies[i].split("=")[0];
+                    //alert(expireDate.toGMTString());
+                    document.cookie = cookiename + "=;expires=" + expireDate.toGMTString();
+                }
+            }
+            document.getElementById("cookieData").innerHTML = "Number of cookies deleted: " + cookieCount;
+        }
+    </script>
+
+</body>
+
+</html>

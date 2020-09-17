@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <p id="count"></p>
+    <script>
+        window.addEventListener("load", pageHit, false);
+
+        function pageHit() {
+            var expireDate = new Date();
+            expireDate.setMonth(expireDate.getMonth() + 6);
+            var hitCount = parseInt(cookVal("pageHit"));
+            hitCount++;
+            document.cookie = "pageHit=" + hitCount + ";expires=" + expireDate.toGMTString();
+            document.getElementById("count").innerHTML = "浏览次数为" + hitCount;
+        }
+
+        function cookVal(cookieName) {
+            var cookies = document.cookie.split("; ");
+            for (var i = 0; i < cookies.length; i++) {
+                if (cookieName == cookies[i].split("=")[0]) {
+                    return cookies[i].split("=")[1];
+                }
+            }
+            return 0;
+        }
+    </script>
+</body>
+
+</html>

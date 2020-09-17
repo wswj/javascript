@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <p id="count"></p>
+    <script>
+        window.addEventListener("load", pageHit, false);
+
+        function pageHit() {
+            var outMsg = "";
+            var expireDate = new Date();
+            expireDate.setMonth(expireDate.getMonth() + 6);
+            var hitCount = parseInt(cookVal("pageHit"));
+            hitCount++;
+            var lastVisitTime = cookVal("lastVisitTime");
+            if (lastVisitTime == 0) {
+                lastVisitTime = "";
+            }
+            document.cookie = "lastVisitTime=" + new Date() + ";expires=" + expireDate.toGMTString();
+            document.cookie = "pageHit=" + hitCount + ";expires=" + expireDate.toGMTString();
+            outMsg += "You have visited this page " + hitCount + " times."
+            if (lastVisitTime == "") {
+                outMsg += "<br /> This is your first time visit this site"
+            } else {
+                outMsg += "<br>Your last visit was " + lastVisitTime;
+            }
+            document.getElementById("count").innerHTML = outMsg;
+        }
+
+        function cookVal(cookieName) {
+            var cookies = document.cookie.split("; ");
+            for (var i = 0; i < cookies.length; i++) {
+                if (cookieName == cookies[i].split("=")[0]) {
+                    return cookies[i].split("=")[1];
+                }
+            }
+            return 0;
+        }
+    </script>
+</body>
+
+</html>
