@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #textArea {
+            border: 0;
+            border-radius: 10px;
+            background-color: rgba(241, 241, 241, .98);
+            resize: none;
+            padding: 10px;
+            width: 300px;
+            height: 270px;
+            overflow: hidden;
+        }
+        
+        #textArea:focus {
+            border: 0;
+            border-radius: 10px;
+            background-color: rgba(241, 241, 241, .98);
+            resize: none;
+            padding: 10px;
+            width: 300px;
+            height: 270px;
+            overflow: hidden;
+            /* inset内阴影 */
+            box-shadow: 0px 0px 5px blue inset;
+            outline: none;
+        }
+    </style>
+</head>
+
+<body>
+    <form id="theForm">
+        <p><textarea id="textArea" rows="5" cols="30"></textarea></p>
+        <p>
+            <label><input type="radio" name="nodeAction">Add node</label>
+            <label><input type="radio" name="nodeAction">Delete node</label>
+        </p>
+        Paragraph #: <select id="grafCount"></select>
+        <input type="submit" value="Submit">
+    </form>
+    <div id="modifiable"> </div>
+    <script>
+        window.addEventListener("load", initAll, false);
+        var changeArea;
+
+        function initAll() {
+            document.getElementById("theForm").addEventListener("submit", changeNode, false);
+            changeArea = document.getElementById("modifiable");
+        }
+
+        function changeNode(evt) {
+            var actiontype = -1;
+            var pnum = changeArea.getElementsByTagName("p").length;
+            var radioSet = document.getElementById("theForm").nodeAction;
+            for (var i = 0; i < radioSet.length; i++) {
+                if (radioSet[i].checked) {
+
+                    actiontype = i;
+                }
+            }
+            switch (actiontype) {
+                case 0:
+                    addNode();
+                    break;
+                case 1:
+                    if (pnum > 0) {
+                        deleteNode();
+                        break;
+                    }
+                default:
+                    alert("there is nothing to delete");
+            }
+            var pnums = changeArea.getElementsByTagName("p").length;
+            document.getElementById("grafCount").options.length = 0;
+            for (var i = 0; i < pnums; i++) {
+                document.getElementById("grafCount").options[i] = new Option(i + 1);
+            }
+            evt.preventDefault();
+        }
+
+        function addNode() {
+            var newText = document.getElementById("textArea").value;
+            var textNode = document.createTextNode(newText);
+            var newp = document.createElement("p");
+            newp.appendChild(textNode);
+            changeArea.appendChild(newp);
+        }
+
+        function deleteNode() {
+            var index = document.getElementById("grafCount").selectedIndex;
+            var allP = changeArea.getElementsByTagName("p");
+            changeArea.removeChild(allP[index]);
+        }
+    </script>
+</body>
+
+</html>
