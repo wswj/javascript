@@ -11,21 +11,38 @@
     <form id="theForm">
         <p><textarea id="textArea" rows="5" cols="30"></textarea></p>
         <input type="submit" value="Add some text to the page">
+        <a href="#" id="deleteNode">delete last paragraph</a>
     </form>
     <script>
         window.addEventListener("load", initAll, false);
 
         function initAll() {
             document.getElementById("theForm").addEventListener("submit", addTextNode, false);
+            document.getElementById("deleteNode").addEventListener("click", deleteNode, false);
         }
 
         function addTextNode(evt) {
             var inText = document.getElementById("textArea").value;
             alert(inText);
+            //与innerHtml不同会转义html标签,使标签原样输出如<h1>就输出<h1>而不是显示标题
             var newText = document.createTextNode(inText);
             var newPNode = document.createElement("p");
             newPNode.appendChild(newText);
             document.getElementsByTagName("body")[0].appendChild(newPNode);
+            //不进行任何默认事件的运行,即尽管调用了submit方法但是因为以下代码的原因,不会进行提交
+            evt.preventDefault();
+        }
+
+        function deleteNode(evt) {
+            var ps = document.getElementsByTagName("p");
+            alert(ps.length)
+            if (ps.length > 1) {
+                var lastp = ps[ps.length - 1]
+                var docbody = document.getElementsByTagName("body")[0];
+                docbody.removeChild(lastp);
+            } else {
+                alert("Nothing to delete");
+            }
             evt.preventDefault();
         }
     </script>
