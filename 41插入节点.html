@@ -30,33 +30,6 @@
             box-shadow: 0px 0px 5px blue inset;
             outline: none;
         }
-        
-        #grafCount {
-            width: 200px;
-            height: 25px;
-            box-shadow: 0 0 3px grey;
-            border-radius: 10px;
-            /*很关键：将默认的select选择框样式清除*/
-            appearance: none;
-            -moz-appearance: none;
-            -webkit-appearance: none;
-        }
-        
-        select::-ms-expand {
-            display: none;
-        }
-        
-        #grafCount:focus {
-            width: 200px;
-            height: 25px;
-            box-shadow: 0 0 3px grey;
-            border-radius: 10px;
-            /*很关键：将默认的select选择框样式清除*/
-            appearance: none;
-            -moz-appearance: none;
-            -webkit-appearance: none;
-            outline: none;
-        }
     </style>
 </head>
 
@@ -66,6 +39,7 @@
         <p>
             <label><input type="radio" name="nodeAction">Add node</label>
             <label><input type="radio" name="nodeAction">Delete node</label>
+            <label><input type="radio" name="nodeAction">Add before node</label>
         </p>
         Paragraph #: <select id="grafCount"></select>
         <input type="submit" value="Submit">
@@ -83,7 +57,6 @@
         function changeNode(evt) {
             var actiontype = -1;
             var pnum = changeArea.getElementsByTagName("p").length;
-            //选择那么为nodeAction的标签
             var radioSet = document.getElementById("theForm").nodeAction;
             for (var i = 0; i < radioSet.length; i++) {
                 if (radioSet[i].checked) {
@@ -91,6 +64,7 @@
                     actiontype = i;
                 }
             }
+            alert(actiontype);
             switch (actiontype) {
                 case 0:
                     addNode();
@@ -98,6 +72,11 @@
                 case 1:
                     if (pnum > 0) {
                         deleteNode();
+                        break;
+                    }
+                case 2:
+                    if (pnum > 0) {
+                        insertNode();
                         break;
                     }
                 default:
@@ -123,6 +102,16 @@
             var index = document.getElementById("grafCount").selectedIndex;
             var allP = changeArea.getElementsByTagName("p");
             changeArea.removeChild(allP[index]);
+        }
+
+        function insertNode() {
+            var newText = document.getElementById("textArea").value;
+            var textNode = document.createTextNode(newText);
+            var newp = document.createElement("p");
+            newp.appendChild(textNode);
+            var index = document.getElementById("grafCount").selectedIndex;
+            var docs = changeArea.getElementsByTagName("p");
+            changeArea.insertBefore(newp, docs[index]);
         }
     </script>
 </body>

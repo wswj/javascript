@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="dtField"></div>
+    <script>
+        window.addEventListener("load", initDate, false);
+
+        function initDate() {
+            var dayName = new Array("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday");
+            var monName = new Array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
+            var now = new Date();
+            //getday获取星期几(或取的值是0~6),getMonth的值是(0~11),getDate获取今天是一个月的第几天
+            var dtString = dayName[now.getDay()] + "," + monName[now.getMonth()] + "," + now.getDate();
+            document.getElementById("dtField").innerHTML = dtString;
+        }
+    </script>
+</body>
+
+</html>
