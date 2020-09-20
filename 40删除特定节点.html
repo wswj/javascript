@@ -30,6 +30,33 @@
             box-shadow: 0px 0px 5px blue inset;
             outline: none;
         }
+        
+        #grafCount {
+            width: 200px;
+            height: 25px;
+            box-shadow: 0 0 3px grey;
+            border-radius: 10px;
+            /*很关键：将默认的select选择框样式清除*/
+            appearance: none;
+            -moz-appearance: none;
+            -webkit-appearance: none;
+        }
+        
+        select::-ms-expand {
+            display: none;
+        }
+        
+        #grafCount:focus {
+            width: 200px;
+            height: 25px;
+            box-shadow: 0 0 3px grey;
+            border-radius: 10px;
+            /*很关键：将默认的select选择框样式清除*/
+            appearance: none;
+            -moz-appearance: none;
+            -webkit-appearance: none;
+            outline: none;
+        }
     </style>
 </head>
 
@@ -56,6 +83,7 @@
         function changeNode(evt) {
             var actiontype = -1;
             var pnum = changeArea.getElementsByTagName("p").length;
+            //选择那么为nodeAction的标签
             var radioSet = document.getElementById("theForm").nodeAction;
             for (var i = 0; i < radioSet.length; i++) {
                 if (radioSet[i].checked) {

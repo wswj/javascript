@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background-color: #FFF;
+        }
+        
+        .centered {
+            text-align: center;
+        }
+        
+        label {
+            padding-right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="centered">
+        <h2 id="showTime"> </h2>
+        Display 24-hour Clock?
+        <input type="radio" name="timeClock" id="show24" checked><label for="show24">Yes</label>
+        <input type="radio" name="timeClock" id="show12"><label for="show12">No</label>
+    </div>
+    <script>
+        window.addEventListener("load", initDate, false);
+
+        function initDate() {
+            var time = document.getElementById("showTime");
+            var now = new Date();
+            time.innerHTML = showTheHours(now.getHours()) + showZeroFilled(now.getMinutes()) + showZeroFilled(now.getSeconds()) + showAmPm();;
+            setTimeout(initDate, 1000);
+
+            function showTheHours(theHour) {
+                if (show24Hour() || (theHour > 0 && theHour < 13)) {
+                    return theHour;
+                }
+                if (theHour == 0) {
+                    return 12;
+                }
+                return theHour - 12;
+            }
+
+            function show24Hour() {
+                return document.getElementById("show24").checked;
+            }
+
+            function showAmPm() {
+                if (show24Hour()) {
+                    return "";
+                }
+                if (now.getHours() < 12) {
+                    return " AM";
+                }
+                return " PM";
+            }
+
+            function showZeroFilled(inValue) {
+                if (inValue > 9) {
+                    return ":" + inValue;
+                }
+                return ":0" + inValue;
+            }
+        }
+    </script>
+</body>
+
+</html>

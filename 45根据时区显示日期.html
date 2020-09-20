@@ -14,7 +14,59 @@
         <li><span class="tz-5"> </span> in New York</li>
         <li><span class="tz-0"> </span> in London</li>
         <li><span class="tz+7"> </span> in Hong Kong</li>
+        <li><span class="tz+8"> </span> in Bei Jing</li>
     </ul>
+    <script>
+        window.addEventListener("load", initDate, false);
+
+        function initDate() {
+            var spans = document.getElementsByTagName("span");
+            for (var i = 0; i < spans.length; i++) {
+                if (spans[i].className.indexOf("tz" == 0)) {
+                    //substring从索引为2开始一直截取到最后一位
+                    showTime(spans[i], spans[i].className.substring(2));
+                }
+            }
+
+            function showTime(currElement, timeOffset) {
+                var dayName = new Array("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday");
+                var dateUTC = new Date();
+                dateUTCStr = dateUTC.toUTCString();
+                //从第0为开始截取到
+                dateUTCStr = dateUTCStr.substr(0, dateUTCStr.length - 3);
+                dateUTC.setTime(Date.parse(dateUTCStr));
+                dateUTC.setHours(dateUTC.getHours() + parseInt(timeOffset));
+                currElement.innerHTML = showTheHours(dateUTC.getHours()) + showZeroFilled(dateUTC.getMinutes()) + showAmPm(dateUTC.getHours()) + dayName[dateUTC.getDay()];
+
+                function showTheHours(hour) {
+                    if (hour == 0) {
+                        return 12;
+                    } else if (hour < 13) {
+                        return hour;
+                    } else {
+                        return hour - 12;
+                    }
+                }
+
+                function showZeroFilled(zerofill) {
+                    if (zerofill < 10) {
+                        return ":0" + zerofill;
+                    } else {
+                        return ":" + zerofill;
+                    }
+                }
+
+                function showAmPm(time) {
+                    if (time > 12) {
+                        return " PM ";
+                    } else {
+                        return " AM ";
+                    }
+                }
+
+            }
+        }
+    </script>
 </body>
 
 </html>
